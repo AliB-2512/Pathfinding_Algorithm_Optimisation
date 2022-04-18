@@ -43,6 +43,9 @@ class Node:
     def isEndNode(self):
         return self.color == CYAN
 
+    def isPath(self):
+        return self.color == PURPLE
+
     def resetNode(self):
         self.color = WHITE
 
