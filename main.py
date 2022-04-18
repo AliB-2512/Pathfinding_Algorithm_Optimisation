@@ -2,6 +2,7 @@ import a_star
 import dijkstra
 import pygame
 import algorithms
+import weighted_a_star
 
 # pyGame Display Output
 WIDTH = 800
@@ -11,10 +12,10 @@ ROWS = 50
 # Density Percentages
 tenper = int(((ROWS * ROWS) / 100) * 10)
 twentyper = int(((ROWS * ROWS) / 100) * 20)
-thrityper = int(((ROWS * ROWS)/ 100) * 30)
+thrityper = int(((ROWS * ROWS) / 100) * 30)
 fourtyper = int(((ROWS * ROWS) / 100) * 40)
 fiftyper = int(((ROWS * ROWS) / 100) * 50)
-sixtyper = int(((ROWS * ROWS)/ 100) * 60)
+sixtyper = int(((ROWS * ROWS) / 100) * 60)
 seventyper = int(((ROWS * ROWS) / 100) * 70)
 eightyper = int(((ROWS * ROWS) / 100) * 80)
 ninetyper = int(((ROWS * ROWS) / 100) * 90)
@@ -41,6 +42,10 @@ def algorithm_run(algorithm_type, density, path_distance, rows):
             algorithms.main(WIN, WIDTH, density, 2, path_distance, rows)
             path_list.append(dijkstra.path_count)
             expanded_list.append(dijkstra.expanded_count)
+        elif algorithm_type == 3:
+            algorithms.main(WIN, WIDTH, density, 3, path_distance, rows)
+            path_list.append(weighted_a_star.path_count)
+            expanded_list.append(weighted_a_star.expanded_count)
 
     for i in range(len(path_list)):
         total_path = total_path + path_list[i]
@@ -54,6 +59,8 @@ def algorithm_run(algorithm_type, density, path_distance, rows):
         print(f"Average length of path is: {average_path} for A* Algorithm")
     elif algorithm_type == 2:
         print(f"Average length of path is: {average_path} for Dijkstra's Algorithm")
+    elif algorithm_type == 3:
+        print(f"Average length of path is: {average_path} for A*(Custom Weighting) Algorithm")
     print(expanded_list)
     if algorithm_type == 1:
         print(
@@ -61,12 +68,15 @@ def algorithm_run(algorithm_type, density, path_distance, rows):
     elif algorithm_type == 2:
         print(
             f"Average number of searched grids is: {average_expanded} for Dijkstra's Algorithm for path length of {path_distance} with obstacle density {density}")
+    elif algorithm_type == 3:
+        print(
+            f"Average number of searched grids is: {average_expanded} for A*(Custom Weighting) Algorithm for path length of {path_distance} with obstacle density {density}")
 
 
 def main():
     algorithm_run(1, fourtyper, large, ROWS)
-    algorithm_run(2, fourtyper, small, ROWS)
-
+    algorithm_run(2, fourtyper, large, ROWS)
+    algorithm_run(3, fourtyper, large, ROWS)
 
 if __name__ == "__main__":
     main()

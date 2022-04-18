@@ -26,8 +26,15 @@ def huresticFunction(intermediate_node, end_node):
     return abs(x1 - x2) + abs(y1 - y2)
 #add weighting here
 
+def calculate_angle(startx, starty, endx, endy):
+    dx = endx - startx
+    dy = endy - starty
+    rads = math.atan2(dx, -dy)
+    rads %= 2 * math.pi
+    degs = math.degrees(rads)
+    return degs
 
-def aStar(draw, grid, start, end):
+def w_aStar(draw, grid, start, end):
     count = 0
     priority_queue = PriorityQueue()
     priority_queue.put((0, count, start))

@@ -4,6 +4,7 @@ import pygame
 from node import Node
 from a_star import aStar
 from dijkstra import dijkstra
+from weighted_a_star import w_aStar
 
 pygame.init()
 pygame.display.set_caption("Pathfinding visualizer")
@@ -20,7 +21,8 @@ def algorithm(draw, grid, start, end, algorithm_type):
         aStar(draw, grid, start, end)
     elif algorithm_type == 2:
         dijkstra(draw, grid, start, end)
-
+    elif algorithm_type == 3:
+        w_aStar(draw, grid, start, end)
 
 def buildGrid(row, width):
     grid = []
