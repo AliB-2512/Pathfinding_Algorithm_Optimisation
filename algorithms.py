@@ -6,9 +6,6 @@ from a_star import aStar
 from dijkstra import dijkstra
 
 pygame.init()
-
-HEIGHT, WIDTH = 900, 900
-window = pygame.display.set_mode((HEIGHT, WIDTH))
 pygame.display.set_caption("Pathfinding visualizer")
 
 GREY = (128, 128, 128)
@@ -50,15 +47,8 @@ def draw(window, grid, rows, width):
     pygame.display.update()
 
 
-def getClickedPosition(position, rows, width):
-    gap = width // rows
-    x, y = position
-    row, column = x // gap, y // gap
-    return row, column
-
-
-def main(window, WIDTH, density, algorithm_type):
-    rows = 50
+def main(window, WIDTH, density, algorithm_type, path_distance, ROWS):
+    rows = ROWS
     grid = buildGrid(rows, WIDTH)
 
     start, end = None, None
@@ -71,10 +61,25 @@ def main(window, WIDTH, density, algorithm_type):
             start = node
             start.makeStartNode()
 
-        elif not end and node != start:
-            end = node
-            end.makeEndNode()
 
+        elif not end and node != start:
+            new_distance = generate_num(0, path_distance)
+            remaining_distance = path_distance - new_distance
+
+            if (start.row + new_distance) >= rows:
+                if (start.column + remaining_distance) >= rows:
+                    end = grid[start.row - new_distance][start.column - remaining_distance]
+                    end.makeEndNode()
+                elif (start.column + remaining_distance) < rows:
+                    end = grid[start.row - new_distance][start.column + remaining_distance]
+                    end.makeEndNode()
+            elif (start.row + new_distance) < rows:
+                if (start.column + remaining_distance) >= rows:
+                    end = grid[start.row + new_distance][start.column - remaining_distance]
+                    end.makeEndNode()
+                elif (start.column + remaining_distance) < rows:
+                    end = grid[start.row + new_distance][start.column + remaining_distance]
+                    end.makeEndNode()
         elif node != end and node != start:
             node.makeObstacle()
 

@@ -3,20 +3,29 @@ import dijkstra
 import pygame
 import algorithms
 
+# pyGame Display Output
 WIDTH = 800
 WIN = pygame.display.set_mode((WIDTH, WIDTH))
-tenper = 250
-twentyper = 500
-thrityper = 750
-fourtyper = 1000
-fiftyper = 1250
-sixtyper = 1500
-seventyper = 1750
-eightyper = 2000
-ninetyper = 2250
+ROWS = 50
+
+# Density Percentages
+tenper = int(((ROWS * ROWS) / 100) * 10)
+twentyper = int(((ROWS * ROWS) / 100) * 20)
+thrityper = int(((ROWS * ROWS)/ 100) * 30)
+fourtyper = int(((ROWS * ROWS) / 100) * 40)
+fiftyper = int(((ROWS * ROWS) / 100) * 50)
+sixtyper = int(((ROWS * ROWS)/ 100) * 60)
+seventyper = int(((ROWS * ROWS) / 100) * 70)
+eightyper = int(((ROWS * ROWS) / 100) * 80)
+ninetyper = int(((ROWS * ROWS) / 100) * 90)
+
+# Path Lengths
+small = 10
+medium = 25
+large = 50
 
 
-def algorithm_run(algorithm_type, density):
+def algorithm_run(algorithm_type, density, path_distance, rows):
     path_list = []
     total_path = 0
 
@@ -25,11 +34,11 @@ def algorithm_run(algorithm_type, density):
 
     for x in range(5):
         if algorithm_type == 1:
-            algorithms.main(WIN, WIDTH, density, 1)
+            algorithms.main(WIN, WIDTH, density, 1, path_distance, rows)
             path_list.append(a_star.path_count)
             expanded_list.append(a_star.expanded_count)
         elif algorithm_type == 2:
-            algorithms.main(WIN, WIDTH, density, 2)
+            algorithms.main(WIN, WIDTH, density, 2, path_distance, rows)
             path_list.append(dijkstra.path_count)
             expanded_list.append(dijkstra.expanded_count)
 
@@ -47,14 +56,16 @@ def algorithm_run(algorithm_type, density):
         print(f"Average length of path is: {average_path} for Dijkstra's Algorithm")
     print(expanded_list)
     if algorithm_type == 1:
-        print(f"Average number of searched grids is: {average_expanded} for A* Algorithm")
+        print(
+            f"Average number of searched grids is: {average_expanded} for A* Algorithm for path length {path_distance} with obstacle density {density}")
     elif algorithm_type == 2:
-        print(f"Average number of searched grids is: {average_expanded} for Dijkstra's Algorithm")
+        print(
+            f"Average number of searched grids is: {average_expanded} for Dijkstra's Algorithm for path length of {path_distance} with obstacle density {density}")
 
 
 def main():
-    algorithm_run(1, fourtyper)
-    algorithm_run(2, fourtyper)
+    algorithm_run(1, fourtyper, large, ROWS)
+    algorithm_run(2, fourtyper, small, ROWS)
 
 
 if __name__ == "__main__":

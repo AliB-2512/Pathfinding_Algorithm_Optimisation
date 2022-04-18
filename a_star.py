@@ -7,7 +7,7 @@ global path_count
 path_count = 0
 global expanded_count
 
-HEIGHT, WIDTH = 900, 900
+HEIGHT, WIDTH = 800, 800
 
 
 def reconstructPath(came_from, current, draw):
