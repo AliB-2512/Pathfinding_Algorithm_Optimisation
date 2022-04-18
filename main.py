@@ -42,5 +42,6 @@ def main():
     algorithm_run(1)
     algorithm_run(2)
 
+
 if __name__ == "__main__":
     main()
