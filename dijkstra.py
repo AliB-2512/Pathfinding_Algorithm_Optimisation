@@ -5,6 +5,8 @@ from node import Node
 
 global path_count
 path_count = 0
+global expanded_count
+
 HEIGHT, WIDTH = 900, 900
 
 
@@ -19,6 +21,7 @@ def reconstructPath(came_from, current, draw):
 
 
 def dijkstra(draw, grid, start, end):
+    count = 0
     visited = {node: False for row in grid for node in row}
     distance = {node: math.inf for row in grid for node in row}
     distance[start] = 0
@@ -46,6 +49,9 @@ def dijkstra(draw, grid, start, end):
                 distance[neighbor] = distance[current] + weight
                 priority_queue.put((distance[neighbor], neighbor))
             if neighbor != end and neighbor != start and not visited[neighbor]:
+                count += 1
                 neighbor.makeVisiting()
         draw()
+        global expanded_count
+        expanded_count = count
     return False

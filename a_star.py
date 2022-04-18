@@ -5,6 +5,8 @@ from node import Node
 
 global path_count
 path_count = 0
+global expanded_count
+
 HEIGHT, WIDTH = 900, 900
 
 
@@ -60,4 +62,6 @@ def aStar(draw, grid, start, end):
         draw()
         if current != start:
             current.makeVisited()
+        global expanded_count
+        expanded_count = count
     return False
