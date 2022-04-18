@@ -16,7 +16,7 @@ eightyper = 2000
 ninetyper = 2250
 
 
-def algorithm_run(algorithm_type):
+def algorithm_run(algorithm_type, density):
     path_list = []
     total_path = 0
 
@@ -25,11 +25,11 @@ def algorithm_run(algorithm_type):
 
     for x in range(5):
         if algorithm_type == 1:
-            algorithms.main(WIN, WIDTH, fourtyper, 1)
+            algorithms.main(WIN, WIDTH, density, 1)
             path_list.append(a_star.path_count)
             expanded_list.append(a_star.expanded_count)
         elif algorithm_type == 2:
-            algorithms.main(WIN, WIDTH, fourtyper, 2)
+            algorithms.main(WIN, WIDTH, density, 2)
             path_list.append(dijkstra.path_count)
             expanded_list.append(dijkstra.expanded_count)
 
@@ -53,8 +53,8 @@ def algorithm_run(algorithm_type):
 
 
 def main():
-    algorithm_run(1)
-    algorithm_run(2)
+    algorithm_run(1, fourtyper)
+    algorithm_run(2, fourtyper)
 
 
 if __name__ == "__main__":
