@@ -21,9 +21,9 @@ eightyper = int(((ROWS * ROWS) / 100) * 80)
 ninetyper = int(((ROWS * ROWS) / 100) * 90)
 
 # Path Lengths
-small = 10
-medium = 25
-large = 50
+small = ROWS/5
+medium = ROWS/2
+large = ROWS
 
 
 # noinspection PyStatementEffect
