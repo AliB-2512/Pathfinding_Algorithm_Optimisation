@@ -24,6 +24,7 @@ def algorithm(draw, grid, start, end, algorithm_type):
     elif algorithm_type == 3:
         w_aStar(draw, grid, start, end)
 
+
 def buildGrid(row, width):
     grid = []
     node_width = width // row
@@ -49,7 +50,21 @@ def draw(window, grid, rows, width):
     pygame.display.update()
 
 
-def main(window, WIDTH, density, algorithm_type, path_distance, ROWS):
+def clear_grid(grid, rows, start, end):
+    for x in range(rows):
+        for y in range(rows):
+            node = grid[x][y]
+            start.makeStartNode()
+            end.makeEndNode()
+            if node.isVisiting():
+                node.resetNode()
+            elif node.isCLosed():
+                node.resetNode()
+            elif node.isPath():
+                node.resetNode()
+
+
+def main(window, WIDTH, density, path_distance, ROWS):
     rows = ROWS
     grid = buildGrid(rows, WIDTH)
 
@@ -89,20 +104,8 @@ def main(window, WIDTH, density, algorithm_type, path_distance, ROWS):
         for node in row:
             node.updateNeighbors(grid)
 
-    algorithm(lambda: draw(window, grid, rows, WIDTH), grid, start, end, algorithm_type)
-
-    #to have differenet algorithm run on same map
-    # for x in range(rows):
-    #     for y in range(rows):
-    #         node = grid[x][y]
-    #         start.makeStartNode()
-    #         end.makeEndNode()
-    #         if node.isVisiting():
-    #             node.resetNode()
-    #         elif node.isCLosed():
-    #             node.resetNode()
-    #         elif node.isPath():
-    #             node.resetNode()
-    # algorithm(lambda: draw(window, grid, rows, WIDTH), grid, start, end, 2)
+    algorithm(lambda: draw(window, grid, rows, WIDTH), grid, start, end, 1)
+    clear_grid(grid, rows, start, end)
+    algorithm(lambda: draw(window, grid, rows, WIDTH), grid, start, end, 2)
 
     grid = buildGrid(rows, WIDTH)

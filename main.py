@@ -26,57 +26,63 @@ medium = 25
 large = 50
 
 
-def algorithm_run(algorithm_type, density, path_distance, rows):
-    path_list = []
-    total_path = 0
+# noinspection PyStatementEffect
+def algorithm_run(density, path_distance, rows):
+    a_star_path_list = []
+    a_star_total_path = 0
 
-    expanded_list = []
-    total_expanded = 0
+    a_star_expanded_list = []
+    a_star_total_expanded = 0
+
+    dijkstra_path_list = []
+    dijkstra_total_path = 0
+
+    dijkstra_expanded_list = []
+    dijkstra_total_expanded = 0
 
     for x in range(5):
-        if algorithm_type == 1:
-            algorithms.main(WIN, WIDTH, density, 1, path_distance, rows)
-            path_list.append(a_star.path_count)
-            expanded_list.append(a_star.expanded_count)
-        elif algorithm_type == 2:
-            algorithms.main(WIN, WIDTH, density, 2, path_distance, rows)
-            path_list.append(dijkstra.path_count)
-            expanded_list.append(dijkstra.expanded_count)
-        elif algorithm_type == 3:
-            algorithms.main(WIN, WIDTH, density, 3, path_distance, rows)
-            path_list.append(weighted_a_star.path_count)
-            expanded_list.append(weighted_a_star.expanded_count)
+        algorithms.main(WIN, WIDTH, density, path_distance, rows)
 
-    for i in range(len(path_list)):
-        total_path = total_path + path_list[i]
-        total_expanded = total_expanded + expanded_list[i]
+        a_star_path_list.append(a_star.path_count)
+        a_star_expanded_list.append(a_star.expanded_count)
 
-    average_path = total_path / (len(path_list))
-    average_expanded = total_expanded / (len(expanded_list))
+        dijkstra_path_list.append(dijkstra.path_count)
+        dijkstra_expanded_list.append(dijkstra.expanded_count)
 
-    print(path_list)
-    if algorithm_type == 1:
-        print(f"Average length of path is: {average_path} for A* Algorithm")
-    elif algorithm_type == 2:
-        print(f"Average length of path is: {average_path} for Dijkstra's Algorithm")
-    elif algorithm_type == 3:
-        print(f"Average length of path is: {average_path} for A*(Custom Weighting) Algorithm")
-    print(expanded_list)
-    if algorithm_type == 1:
-        print(
-            f"Average number of searched grids is: {average_expanded} for A* Algorithm for path length {path_distance} with obstacle density {density}")
-    elif algorithm_type == 2:
-        print(
-            f"Average number of searched grids is: {average_expanded} for Dijkstra's Algorithm for path length of {path_distance} with obstacle density {density}")
-    elif algorithm_type == 3:
-        print(
-            f"Average number of searched grids is: {average_expanded} for A*(Custom Weighting) Algorithm for path length of {path_distance} with obstacle density {density}")
+    for i in range(len(a_star_path_list)):
+        a_star_total_path = a_star_total_path + a_star_path_list[i]
+        a_star_total_expanded = a_star_total_expanded + a_star_expanded_list[i]
+
+    for j in range(len(dijkstra_path_list)):
+        dijkstra_total_path = dijkstra_total_path + dijkstra_path_list[j]
+        dijkstra_total_expanded = dijkstra_total_expanded + dijkstra_expanded_list[j]
+
+    a_star_average_path = a_star_total_path / (len(a_star_path_list))
+    a_star_average_expanded = a_star_total_expanded / (len(a_star_expanded_list))
+
+    dijkstra_average_path = dijkstra_total_path / (len(dijkstra_path_list))
+    dijkstra_average_expanded = dijkstra_total_expanded / (len(dijkstra_expanded_list))
+
+    print(f"""
+A* Algorithm:
+{a_star_path_list}
+The average path length is: {a_star_average_path}
+{a_star_expanded_list}
+the average number of searched nodes is: {a_star_average_expanded}
+""")
+
+    print(f"""
+Dijkstra's Algorithm:
+{dijkstra_path_list}
+The average path length is: {dijkstra_average_path}
+{dijkstra_expanded_list}
+the average number of searched nodes is: {dijkstra_average_expanded}
+""")
 
 
 def main():
-    algorithm_run(1, fourtyper, large, ROWS)
-    algorithm_run(2, fourtyper, large, ROWS)
-    algorithm_run(3, fourtyper, large, ROWS)
+    algorithm_run(fourtyper, large, ROWS)
+
 
 if __name__ == "__main__":
     main()
