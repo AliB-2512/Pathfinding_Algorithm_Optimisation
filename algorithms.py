@@ -107,5 +107,6 @@ def main(window, WIDTH, density, path_distance, ROWS):
     algorithm(lambda: draw(window, grid, rows, WIDTH), grid, start, end, 1)
     clear_grid(grid, rows, start, end)
     algorithm(lambda: draw(window, grid, rows, WIDTH), grid, start, end, 2)
-
+    clear_grid(grid, rows, start, end)
+    algorithm(lambda: draw(window, grid, rows, WIDTH), grid, start, end, 3)
     grid = buildGrid(rows, WIDTH)

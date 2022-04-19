@@ -40,6 +40,12 @@ def algorithm_run(density, path_distance, rows):
     dijkstra_expanded_list = []
     dijkstra_total_expanded = 0
 
+    w_a_star_path_list = []
+    w_a_star_total_path = 0
+
+    w_a_star_expanded_list = []
+    w_a_star_total_expanded = 0
+
     for x in range(5):
         algorithms.main(WIN, WIDTH, density, path_distance, rows)
 
@@ -49,6 +55,9 @@ def algorithm_run(density, path_distance, rows):
         dijkstra_path_list.append(dijkstra.path_count)
         dijkstra_expanded_list.append(dijkstra.expanded_count)
 
+        w_a_star_path_list.append(weighted_a_star.path_count)
+        w_a_star_expanded_list.append(weighted_a_star.expanded_count)
+
     for i in range(len(a_star_path_list)):
         a_star_total_path = a_star_total_path + a_star_path_list[i]
         a_star_total_expanded = a_star_total_expanded + a_star_expanded_list[i]
@@ -57,11 +66,18 @@ def algorithm_run(density, path_distance, rows):
         dijkstra_total_path = dijkstra_total_path + dijkstra_path_list[j]
         dijkstra_total_expanded = dijkstra_total_expanded + dijkstra_expanded_list[j]
 
+    for k in range(len(w_a_star_path_list)):
+        w_a_star_total_path = w_a_star_total_path + w_a_star_path_list[k]
+        w_a_star_total_expanded = w_a_star_total_expanded + w_a_star_expanded_list[k]
+
     a_star_average_path = a_star_total_path / (len(a_star_path_list))
     a_star_average_expanded = a_star_total_expanded / (len(a_star_expanded_list))
 
     dijkstra_average_path = dijkstra_total_path / (len(dijkstra_path_list))
     dijkstra_average_expanded = dijkstra_total_expanded / (len(dijkstra_expanded_list))
+
+    w_a_star_average_path = w_a_star_total_path / (len(w_a_star_path_list))
+    w_a_star_average_expanded = w_a_star_total_expanded / (len(w_a_star_expanded_list))
 
     print(f"""
 A* Algorithm:
@@ -79,6 +95,13 @@ The average path length is: {dijkstra_average_path}
 the average number of searched nodes is: {dijkstra_average_expanded}
 """)
 
+    print(f"""
+A*(Weighted) Algorithm:
+{w_a_star_path_list}
+The average path length is: {w_a_star_average_path}
+{w_a_star_expanded_list}
+the average number of searched nodes is: {w_a_star_average_expanded}
+""")
 
 def main():
     algorithm_run(fourtyper, large, ROWS)
