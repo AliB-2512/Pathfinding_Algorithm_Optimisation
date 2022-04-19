@@ -34,11 +34,12 @@ def neighbour_calc(startx, starty, endx, endy):
 def weighting(start_angle, current_angle, neighbour_row, neighbour_column, grid):
     weightscore = 0
     current_angle
+
     if neighbour_row >= 47:
         node_ahead = grid[neighbour_row][neighbour_column]
     if neighbour_column >= 47:
         node_ahead = grid[neighbour_row][neighbour_column]
-    else:
+    if neighbour_row <47 and neighbour_column < 47:
         node_ahead = grid[neighbour_row + 2][neighbour_column + 2]
 
     if start_angle == current_angle:
