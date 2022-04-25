@@ -5,7 +5,8 @@ from node import Node
 
 global path_count
 path_count = 0
-global expanded_count
+global searched_count
+
 
 
 HEIGHT, WIDTH = 800, 800
@@ -30,9 +31,6 @@ def dijkstra(draw, grid, start, end):
     priority_queue = PriorityQueue()
     priority_queue.put((0, start))
     while not priority_queue.empty():
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                pygame.quit()
         current = priority_queue.get()[1]
 
         if visited[current]:
@@ -43,16 +41,16 @@ def dijkstra(draw, grid, start, end):
             return True
         if current != start:
             current.makeVisited()
-        for neighbor in current.neighbors:
+        for neighbour in current.neighbours:
             weight = 1
-            if distance[current] + weight < distance[neighbor]:
-                came_from[neighbor] = current
-                distance[neighbor] = distance[current] + weight
-                priority_queue.put((distance[neighbor], neighbor))
-            if neighbor != end and neighbor != start and not visited[neighbor]:
+            if distance[current] + weight < distance[neighbour]:
+                came_from[neighbour] = current
+                distance[neighbour] = distance[current] + weight
+                priority_queue.put((distance[neighbour], neighbour))
+            if neighbour != end and neighbour != start and not visited[neighbour]:
                 count += 1
-                neighbor.makeVisiting()
+                neighbour.makeVisiting()
         draw()
-        global expanded_count
-        expanded_count = count
+        global searched_count
+        searched_count = count
     return False

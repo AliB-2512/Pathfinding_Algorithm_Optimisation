@@ -20,72 +20,72 @@ class Node:
         self.column = column
         self.x = row * width
         self.y = column * width
-        self.color = WHITE
+        self.colour = WHITE
         self.width = width
-        self.neighbors = []
+        self.neighbours = []
         self.total_rows = total_rows
 
     def getPosition(self):
         return self.row, self.column
 
     def isCLosed(self):
-        return self.color == RED
+        return self.colour == RED
 
     def isVisiting(self):
-        return self.color == GREEN
+        return self.colour == GREEN
 
     def isObstacle(self):
-        return self.color == BLACK
+        return self.colour == BLACK
 
     def isStartNode(self):
-        return self.color == ORANGE
+        return self.colour == ORANGE
 
     def isEndNode(self):
-        return self.color == CYAN
+        return self.colour == CYAN
 
     def isPath(self):
-        return self.color == PURPLE
+        return self.colour == PURPLE
 
     def resetNode(self):
-        self.color = WHITE
+        self.colour = WHITE
 
     def makeStartNode(self):
-        self.color = ORANGE
+        self.colour = ORANGE
 
     def makeEndNode(self):
-        self.color = CYAN
+        self.colour = CYAN
 
     def makeVisited(self):
-        self.color = RED
+        self.colour = RED
 
     def makeVisiting(self):
-        self.color = GREEN
+        self.colour = GREEN
 
     def makeObstacle(self):
-        self.color = BLACK
+        self.colour = BLACK
 
     def makePath(self):
-        self.color = PURPLE
+        self.colour = PURPLE
 
     def draw(self, window):
-        pygame.draw.rect(window, self.color, (self.x, self.y, self.width, self.width))
+        pygame.draw.rect(window, self.colour, (self.x, self.y, self.width, self.width))
 
-    def updateNeighbors(self, grid):
-        self.neighbors = []
+    def updateNeighbours(self, grid):
+        self.neighbours = []
         if (
                 self.row < self.total_rows - 1
                 and not grid[self.row + 1][self.column].isObstacle()
         ):
-            self.neighbors.append(grid[self.row + 1][self.column])
+            self.neighbours.append(grid[self.row + 1][self.column])
         if self.row > 0 and not grid[self.row - 1][self.column].isObstacle():
-            self.neighbors.append(grid[self.row - 1][self.column])
+            self.neighbours.append(grid[self.row - 1][self.column])
         if (
                 self.column < self.total_rows - 1
                 and not grid[self.row][self.column + 1].isObstacle()
         ):
-            self.neighbors.append(grid[self.row][self.column + 1])
+            self.neighbours.append(grid[self.row][self.column + 1])
         if self.column > 0 and not grid[self.row][self.column - 1].isObstacle():
-            self.neighbors.append(grid[self.row][self.column - 1])
+            self.neighbours.append(grid[self.row][self.column - 1])
 
     def __lt__(self, other):
         return False

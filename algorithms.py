@@ -64,13 +64,12 @@ def clear_grid(grid, rows, start, end):
                 node.resetNode()
 
 
-def main(window, WIDTH, density, path_distance, ROWS):
-    rows = ROWS
-    grid = buildGrid(rows, WIDTH)
+def main(window, width, density, node_distance, rows):
+    grid = buildGrid(rows, width)
 
     start, end = None, None
 
-    for x in range(0, density):
+    for x in range(0, density + 2):
         row_pos = generate_num(0, rows - 1)
         col_pos = generate_num(0, rows - 1)
         node = grid[row_pos][col_pos]
@@ -78,10 +77,9 @@ def main(window, WIDTH, density, path_distance, ROWS):
             start = node
             start.makeStartNode()
 
-
         elif not end and node != start:
-            new_distance = generate_num(0, path_distance)
-            remaining_distance = path_distance - new_distance
+            new_distance = generate_num(0, node_distance)
+            remaining_distance = node_distance - new_distance
 
             if (start.row + new_distance) >= rows:
                 if (start.column + remaining_distance) >= rows:
@@ -102,11 +100,11 @@ def main(window, WIDTH, density, path_distance, ROWS):
 
     for row in grid:
         for node in row:
-            node.updateNeighbors(grid)
+            node.updateNeighbours(grid)
 
-    algorithm(lambda: draw(window, grid, rows, WIDTH), grid, start, end, 1)
+    algorithm(lambda: draw(window, grid, rows, width), grid, start, end, 1)
     clear_grid(grid, rows, start, end)
-    algorithm(lambda: draw(window, grid, rows, WIDTH), grid, start, end, 2)
+    algorithm(lambda: draw(window, grid, rows, width), grid, start, end, 2)
     clear_grid(grid, rows, start, end)
-    algorithm(lambda: draw(window, grid, rows, WIDTH), grid, start, end, 3)
-    grid = buildGrid(rows, WIDTH)
+    algorithm(lambda: draw(window, grid, rows, width), grid, start, end, 3)
+    grid = buildGrid(rows, width)
